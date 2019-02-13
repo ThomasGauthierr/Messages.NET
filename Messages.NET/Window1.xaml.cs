@@ -23,7 +23,7 @@ namespace Messages.NET
     {
 
         //TODO: Remove later, for test purpose ONLY
-        private static Person connectedUserTest;
+        private static Person connectedUserTest = null;
 
         private ObservableCollection<Person> _persons;
 
@@ -53,26 +53,51 @@ namespace Messages.NET
             }
         }
 
-        private ObservableCollection<Message> _selectedMessages;
-        
-        public ObservableCollection<Message> selectedMessages
+        private ObservableCollection<Message> _selectedMessages
         {
-            get => _selectedMessages;
+            get
+            {
+                Console.WriteLine(_selectedContact == null);
+                if (_selectedContact == null) return null;
+                return _selectedContact.messages(connectedUserTest);
+            }
             set
             {
-                if (_selectedMessages != value)
+                var messages = _selectedContact.messages(connectedUserTest);
+                if (messages != value)
                 {
-                    _selectedMessages = value;
+                    messages = value;
                     this.NotifyPropertyChanged("selectedMessages");
                 }
             }
         }
 
+        private ObservableCollection<Message> selectedMessages
+        {
+            get
+            {
+                if (_selectedContact == null) return null;
+                return _selectedMessages;
+            }
+
+            set
+            {
+                var messages = _selectedContact.messages(connectedUserTest);
+                if (messages != value)
+                {
+                    messages = value;
+                    this.NotifyPropertyChanged("selectedMessages");
+                }
+            }
+        }
+
+        private Person _selectedContact;
+
         public Window1()
         {
 
             _persons = new ObservableCollection<Person>();
-            _selectedMessages = new ObservableCollection<Message>();
+            _selectedContact = null;
 
             Person p1 = new Person("Bob", DateTime.Now);
             Person p2 = new Person("Alice", DateTime.Now);
@@ -127,21 +152,25 @@ namespace Messages.NET
 
         private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Person selectedContact = ContactList.SelectedItem as Person;
-            if (selectedContact == null) return;
-            selectedMessages = selectedContact.messages(connectedUserTest);
+            _selectedContact = ContactList.SelectedItem as Person;
+            if (_selectedContact == null) return;
+
+            Console.WriteLine(_selectedMessages.Count);
         }
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
             Person receiver = ContactList.SelectedItem as Person;
             String content = MessageBox.Text;
-
-            Console.WriteLine( this.selectedMessages.Count);
+            
 
             _messages.Add(new Message(content, connectedUserTest, receiver));
             MessageBox.Text = "";
 
+            foreach (Message m in selectedMessages)
+            {
+                Console.WriteLine(m.content);
+            }
 
         }
     }
