@@ -23,6 +23,8 @@ namespace Messages.NET
     {
         private ObservableCollection<Person> _persons;
 
+        private ObservableCollection<Message> _messages;
+
         public ObservableCollection<Person> persons
         {
             get => _persons;
@@ -41,15 +43,21 @@ namespace Messages.NET
             ListSingleton singleton = ListSingleton.instance;
 
             _persons = singleton.persons;
+            _messages = singleton.messages;
 
-            _persons.Add(new Person("Bob", DateTime.Now));
-            _persons.Add(new Person("Alice", DateTime.Now));
+            Person p1 = new Person("Bob", DateTime.Now);
+            Person p2 = new Person("Alice", DateTime.Now);
+
+            _persons.Add(p1);
+            _persons.Add(p2);
             _persons.Add(new Person("Tom", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
             _persons.Add(new Person("Fred", DateTime.Now));
             _persons.Add(new Person("Ashley", DateTime.Now));
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
+
+            singleton.messages.Add(new Message("bjr", p1,p2));
 
             InitializeComponent();
 

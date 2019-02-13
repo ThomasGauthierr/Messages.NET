@@ -49,7 +49,7 @@ namespace Messages.NET
             set => _privKey = value;
         }
 
-        public IEnumerable<Message> messages
+        public List<Message> messages
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Messages.NET
                     from message in ListSingleton.instance.messages
                     where message.author == this
                     select message;
-                return authorQuery;
+                return authorQuery.ToList();
             }
         }
 

@@ -13,8 +13,6 @@ namespace Messages.NET
 
         private ObservableCollection<Message> _messages;
 
-        private ObservableCollection<Person> _persons;
-
         public static ListSingleton instance
         {
             get
@@ -33,16 +31,9 @@ namespace Messages.NET
             set => _messages = value;
         }
 
-        public ObservableCollection<Person> persons
-        {
-            get => _persons;
-            set => _persons = value;
-        }
-
         private ListSingleton()
         {
             _messages = new ObservableCollection<Message>();
-            _persons = new ObservableCollection<Person>();
         }
 
 
