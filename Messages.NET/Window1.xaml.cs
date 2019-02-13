@@ -118,10 +118,5 @@ namespace Messages.NET
             int indexSelectedContact = ContactList.SelectedIndex;
             selectedMessages = _persons[indexSelectedContact].messages(connectedUserTest);
         }
-
-        private void ListMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }
