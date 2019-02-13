@@ -49,18 +49,15 @@ namespace Messages.NET
             get => _privKey;
             set => _privKey = value;
         }
+        
 
-        public ObservableCollection<Message> messages
+        public ObservableCollection<Message> messages(Person person)
         {
-            get
-            {
-                //TODO : Modify request so it retrieves the message where the connected user and the selected user are the author/receiver
-                IEnumerable<Message> authorQuery =
-                    from message in ListSingleton.instance.messages
-                    where message.author == this
-                    select message;
-                return new ObservableCollection<Message>(authorQuery.ToList());
-            }
+            IEnumerable<Message> authorQuery =
+                   from message in ListSingleton.instance.messages
+                   where message.author == this && message.receiver == person || message.receiver == this && message.author == person
+                   select message;
+            return new ObservableCollection<Message>(authorQuery.ToList());
         }
 
         public Person(String nickname, Nullable<DateTime> lastSeen)

@@ -21,6 +21,10 @@ namespace Messages.NET
     /// </summary>
     public partial class Window1 : Window, INotifyPropertyChanged
     {
+
+        //TODO: Remove later, for test purpose ONLY
+        private static Person connectedUserTest;
+
         private ObservableCollection<Person> _persons;
 
         public ObservableCollection<Person> persons
@@ -75,17 +79,30 @@ namespace Messages.NET
 
             Person p1 = new Person("Bob", DateTime.Now);
             Person p2 = new Person("Alice", DateTime.Now);
+            Person p3 = new Person("Tom", DateTime.Now);
+
+            //TODO: Remove later, for test purpose ONLY
+            connectedUserTest = p1;
 
             _persons.Add(p1);
             _persons.Add(p2);
-            _persons.Add(new Person("Tom", DateTime.Now));
+            _persons.Add(p3);
             _persons.Add(new Person("Sarah", DateTime.Now));
             _persons.Add(new Person("Fred", DateTime.Now));
             _persons.Add(new Person("Ashley", DateTime.Now));
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
 
-            messages.Add(new Message("bjr", p1,p2));
+            messages.Add(new Message("bjr", p1, p2));
+            messages.Add(new Message("slt", p2, p1));
+            messages.Add(new Message("bonsoir", p1, p3));
+            messages.Add(new Message("bjr", p3, p2));
+            messages.Add(new Message("ok", p3, p1));
+            messages.Add(new Message("t ki ?", p1, p2));
+            messages.Add(new Message("ca va ?", p1, p2));
+            messages.Add(new Message("xd", p1, p2));
+            messages.Add(new Message("mdr", p1, p2));
+            messages.Add(new Message("yoyoyo", p1, p3));
 
             InitializeComponent();
 
@@ -114,7 +131,7 @@ namespace Messages.NET
         private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int indexSelectedContact = ContactList.SelectedIndex;
-            selectedMessages = _persons[indexSelectedContact].messages;
+            selectedMessages = _persons[indexSelectedContact].messages(connectedUserTest);
         }
 
         private void ListMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
