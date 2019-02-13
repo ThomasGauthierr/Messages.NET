@@ -115,8 +115,16 @@ namespace Messages.NET
 
         private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int indexSelectedContact = ContactList.SelectedIndex;
-            selectedMessages = _persons[indexSelectedContact].messages(connectedUserTest);
+            Person selectedContact = ContactList.SelectedItem as Person;
+            if (selectedContact == null) return;
+            selectedMessages = selectedContact.messages(connectedUserTest);
+        }
+
+        private void SendMessage(object sender, RoutedEventArgs e)
+        {
+            Person receiver = ContactList.SelectedItem as Person;
+            String content = MessageBox.Text;
+            
         }
     }
 }
