@@ -68,10 +68,9 @@ namespace Messages.NET
 
         public Window1()
         {
-            ListSingleton singleton = ListSingleton.instance;
 
             _persons = new ObservableCollection<Person>();
-            _messages = singleton.messages;
+            _messages = ListSingleton.instance.messages;
             _selectedMessages = new ObservableCollection<Message>();
 
             Person p1 = new Person("Bob", DateTime.Now);
@@ -86,7 +85,7 @@ namespace Messages.NET
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
 
-            singleton.messages.Add(new Message("bjr", p1,p2));
+            messages.Add(new Message("bjr", p1,p2));
 
             InitializeComponent();
 
@@ -114,7 +113,6 @@ namespace Messages.NET
 
         private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine("boihroaihrbozuebrzuiobrezuiobrzeoubroz");
             int indexSelectedContact = ContactList.SelectedIndex;
             selectedMessages = _persons[indexSelectedContact].messages;
         }
