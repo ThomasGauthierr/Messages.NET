@@ -23,8 +23,6 @@ namespace Messages.NET
     {
         private ObservableCollection<Person> _persons;
 
-        private ObservableCollection<Message> _messages;
-
         public ObservableCollection<Person> persons
         {
             get => _persons;
@@ -34,6 +32,21 @@ namespace Messages.NET
                 {
                     _persons = value;
                     this.NotifyPropertyChanged("persons");
+                }
+            }
+        }
+
+        private ObservableCollection<Message> _messages;
+
+        public ObservableCollection<Message> messages
+        {
+            get => _messages;
+            set
+            {
+                if (_messages != value)
+                {
+                    _messages = value;
+                    this.NotifyPropertyChanged("messages");
                 }
             }
         }
