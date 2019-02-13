@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace Messages.NET
 {
@@ -49,15 +50,16 @@ namespace Messages.NET
             set => _privKey = value;
         }
 
-        public List<Message> messages
+        public ObservableCollection<Message> messages
         {
             get
             {
+                //TODO : Modify request so it retrieves the message where the connected user and the selected user are the author/receiver
                 IEnumerable<Message> authorQuery =
                     from message in ListSingleton.instance.messages
                     where message.author == this
                     select message;
-                return authorQuery.ToList();
+                return new ObservableCollection<Message>(authorQuery.ToList());
             }
         }
 

@@ -51,12 +51,28 @@ namespace Messages.NET
             }
         }
 
+        private ObservableCollection<Message> _selectedMessages;
+        
+        public ObservableCollection<Message> selectedMessages
+        {
+            get => _selectedMessages;
+            set
+            {
+                if (_selectedMessages != value)
+                {
+                    _selectedMessages = value;
+                    this.NotifyPropertyChanged("selectedMessages");
+                }
+            }
+        }
+
         public Window1()
         {
             ListSingleton singleton = ListSingleton.instance;
 
             _persons = new ObservableCollection<Person>();
             _messages = singleton.messages;
+            _selectedMessages = new ObservableCollection<Message>();
 
             Person p1 = new Person("Bob", DateTime.Now);
             Person p2 = new Person("Alice", DateTime.Now);
@@ -96,5 +112,16 @@ namespace Messages.NET
             }
         }
 
+        private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine("boihroaihrbozuebrzuiobrezuiobrzeoubroz");
+            int indexSelectedContact = ContactList.SelectedIndex;
+            selectedMessages = _persons[indexSelectedContact].messages;
+        }
+
+        private void ListMessages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

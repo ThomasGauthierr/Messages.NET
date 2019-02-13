@@ -21,7 +21,7 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ItemsSource="{Binding persons}" Name="ContactList">
+        <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ItemsSource="{Binding persons}" Name="ContactList" SelectionChanged="ContactList_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding nickName}" TextWrapping="Wrap" />
@@ -32,8 +32,12 @@
         <Button Grid.Column="0" Grid.Row="1" Margin="5,15">+</Button>
         <Button Grid.Column="1" Grid.Row="1" Margin="5,15" Click="ClickDelete">-</Button>
 
-        <ListBox Grid.Column="2" Grid.Row="0">
-
+        <ListBox Grid.Column="2" Grid.Row="0" ItemsSource="{Binding selectedMessages}" Name="ListMessages" SelectionChanged="ListMessages_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding content}" TextWrapping="Wrap" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <Grid Grid.Column="2" Grid.Row="1">
@@ -51,6 +55,7 @@
             <Button Grid.Column="1" Grid.Row="0" Margin="5,15">Send</Button>
 
         </Grid>
+        <GridSplitter HorizontalAlignment="Left" Height="100" Margin="-142,397,0,0" VerticalAlignment="Top" Width="5"/>
 
     </Grid>
 </Window>

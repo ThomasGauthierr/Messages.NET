@@ -9,17 +9,17 @@ namespace Messages.NET
     public class Message
     {
         private String _id;
-        private String _message;
+        private String _content;
         private Person _author;
         private Person _receiver;
         private DateTime _date;
 
         public String id { get => _id; }
 
-        public String message
+        public String content
         {
-            get => _message;
-            set => _message = value;
+            get => _content;
+            set => _content = value;
         }
 
         public Person author
@@ -43,7 +43,7 @@ namespace Messages.NET
         public Message(String message, Person author, Person target)
         {
             _id = System.Guid.NewGuid().ToString();
-            _message = message;
+            _content = message;
             _author = author;
             _receiver = target;
             _date = DateTime.Now;
