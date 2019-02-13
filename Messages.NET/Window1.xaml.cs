@@ -40,21 +40,6 @@ namespace Messages.NET
             }
         }
 
-        private ObservableCollection<Message> _messages;
-
-        public ObservableCollection<Message> messages
-        {
-            get => _messages;
-            set
-            {
-                if (_messages != value)
-                {
-                    _messages = value;
-                    this.NotifyPropertyChanged("messages");
-                }
-            }
-        }
-
         private ObservableCollection<Message> _selectedMessages;
         
         public ObservableCollection<Message> selectedMessages
@@ -74,7 +59,7 @@ namespace Messages.NET
         {
 
             _persons = new ObservableCollection<Person>();
-            _messages = ListSingleton.instance.messages;
+            var messages = ListSingleton.instance.messages;
             _selectedMessages = new ObservableCollection<Message>();
 
             Person p1 = new Person("Bob", DateTime.Now);
