@@ -42,7 +42,7 @@ namespace Messages.NET
         {
             ListSingleton singleton = ListSingleton.instance;
 
-            _persons = singleton.persons;
+            _persons = new ObservableCollection<Person>();
             _messages = singleton.messages;
 
             Person p1 = new Person("Bob", DateTime.Now);
@@ -70,12 +70,7 @@ namespace Messages.NET
 
             if (indexSelectedContact == -1) return;
 
-            //var binding = CollectionViewSource.GetDefaultView(ContactList.ItemsSource);
-
             persons.RemoveAt(indexSelectedContact);
-            //ContactList.ItemsSource = persons;
-
-            //binding.Refresh();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
