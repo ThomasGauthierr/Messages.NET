@@ -40,10 +40,10 @@ namespace Messages.NET
             set => _date = value;
         }
 
-        public Message(String message, Person author, Person target)
+        public Message(String content, Person author, Person target)
         {
             _id = System.Guid.NewGuid().ToString();
-            _content = message;
+            _content = content;
             _author = author;
             _receiver = target;
             _date = DateTime.Now;

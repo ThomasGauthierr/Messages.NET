@@ -40,6 +40,19 @@ namespace Messages.NET
             }
         }
 
+        private ObservableCollection<Message> _messages
+        {
+            get => ListSingleton.instance.messages;
+            set
+            {
+                if (ListSingleton.instance.messages != value)
+                {
+                    ListSingleton.instance.messages = value;
+                    this.NotifyPropertyChanged("messages");
+                }
+            }
+        }
+
         private ObservableCollection<Message> _selectedMessages;
         
         public ObservableCollection<Message> selectedMessages
@@ -59,7 +72,6 @@ namespace Messages.NET
         {
 
             _persons = new ObservableCollection<Person>();
-            var messages = ListSingleton.instance.messages;
             _selectedMessages = new ObservableCollection<Message>();
 
             Person p1 = new Person("Bob", DateTime.Now);
@@ -78,16 +90,16 @@ namespace Messages.NET
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
 
-            messages.Add(new Message("bjr", p1, p2));
-            messages.Add(new Message("slt", p2, p1));
-            messages.Add(new Message("bonsoir", p1, p3));
-            messages.Add(new Message("bjr", p3, p2));
-            messages.Add(new Message("ok", p3, p1));
-            messages.Add(new Message("t ki ?", p1, p2));
-            messages.Add(new Message("ca va ?", p1, p2));
-            messages.Add(new Message("xd", p1, p2));
-            messages.Add(new Message("mdr", p1, p2));
-            messages.Add(new Message("yoyoyo", p1, p3));
+            _messages.Add(new Message("bjr", p1, p2));
+            _messages.Add(new Message("slt", p2, p1));
+            _messages.Add(new Message("bonsoir", p1, p3));
+            _messages.Add(new Message("bjr", p3, p2));
+            _messages.Add(new Message("ok", p3, p1));
+            _messages.Add(new Message("t ki ?", p1, p2));
+            _messages.Add(new Message("ca va ?", p1, p2));
+            _messages.Add(new Message("xd", p1, p2));
+            _messages.Add(new Message("mdr", p1, p2));
+            _messages.Add(new Message("yoyoyo", p1, p3));
 
             InitializeComponent();
 
@@ -124,7 +136,13 @@ namespace Messages.NET
         {
             Person receiver = ContactList.SelectedItem as Person;
             String content = MessageBox.Text;
-            
+
+            Console.WriteLine( this.selectedMessages.Count);
+
+            _messages.Add(new Message(content, connectedUserTest, receiver));
+            MessageBox.Text = "";
+
+
         }
     }
 }
