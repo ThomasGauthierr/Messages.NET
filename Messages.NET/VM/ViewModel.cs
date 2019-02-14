@@ -128,17 +128,10 @@ namespace Messages.NET
 
             #region Commands initialization
 
-            SendMessageCommand = new HandleCommands(SendMessage);
+            SendMessageCommand = new AppCommands(SendMessage);
+            DeleteContactCommand = new AppCommands(DeleteContact);
 
             #endregion
-        }
-
-        
-
-        private void contactListSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //int indexSelectedContact = ContactList.SelectedIndex;
-            //selectedMessages = _persons[indexSelectedContact].messages(connectedUserTest);
         }
 
         public void ClickDelete(object sender, RoutedEventArgs e)
@@ -169,14 +162,6 @@ namespace Messages.NET
         }
 
 
-        private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-          /*  Person selectedContact = ContactList.SelectedItem as Person;
-            if (selectedContact == null) return;
-            selectedMessages = selectedContact.messages(connectedUserTest);*/
-        }
-
-
 
         #region Commands
         public ICommand SendMessageCommand { get; set; }
@@ -193,7 +178,16 @@ namespace Messages.NET
 
             MessageText = "";
             this.NotifyPropertyChanged("SelectedMessages");
+        }
 
+        public ICommand DeleteContactCommand { get; set; }
+
+        private void DeleteContact()
+        {
+            if (_selectedContact != null)
+            {
+                Persons.Remove(SelectedContact);
+            }
         }
 
         #endregion

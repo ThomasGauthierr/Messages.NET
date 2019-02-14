@@ -8,13 +8,13 @@ using System.Windows.Input;
 
 namespace Messages.NET
 {
-    class HandleCommands : ICommand
+    class AppCommands : ICommand
     {
         private readonly Action _actionToExecute;
 
         public event EventHandler CanExecuteChanged;
 
-        public HandleCommands(Action action)
+        public AppCommands(Action action)
         {
             _actionToExecute = action;
         }
