@@ -64,7 +64,7 @@
             </Grid.RowDefinitions>
 
             <TextBox Grid.Column="0" Grid.Row="0" Margin="5,15" Name="MessageBox"></TextBox>
-            <Button Grid.Column="1" Grid.Row="0" Margin="5,15" Click="SendMessage">Send</Button>
+            <Button Grid.Column="1" Grid.Row="0" Margin="5,15" Command="{Binding SendMessageCommand}">Send</Button>
 
         </Grid>
         <GridSplitter HorizontalAlignment="Left" Height="100" Margin="-142,397,0,0" VerticalAlignment="Top" Width="5"/>

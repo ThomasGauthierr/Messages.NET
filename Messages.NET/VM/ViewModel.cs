@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Messages.NET
 {
@@ -16,6 +17,7 @@ namespace Messages.NET
         public event PropertyChangedEventHandler PropertyChanged;
         private ObservableCollection<Person> _persons;
         private ObservableCollection<Message> _selectedMessages;
+
 
         public ViewModel()
         {
@@ -49,6 +51,12 @@ namespace Messages.NET
             _messages.Add(new Message("mdr", p1, p2));
             _messages.Add(new Message("yoyoyo", p1, p3));
 
+
+            #region Command initialization
+
+            SendMessageCommand = new HandleCommands(SendMessage);
+
+            #endregion
         }
 
         public ObservableCollection<Person> persons
@@ -131,8 +139,14 @@ namespace Messages.NET
             selectedMessages = selectedContact.messages(connectedUserTest);*/
         }
 
-        private void SendMessage(object sender, RoutedEventArgs e)
+
+
+        #region Commands
+        public ICommand SendMessageCommand { get; set; }
+
+        private void SendMessage()
         {
+            MessageBox.Show("Message sent");
             /*Person receiver = ContactList.SelectedItem as Person;
             String content = MessageBox.Text;
 
@@ -143,6 +157,7 @@ namespace Messages.NET
 
         }
 
+        #endregion
 
     }
 }
