@@ -42,7 +42,6 @@ namespace Messages.NET
         public ObservableCollection<Message> SelectedMessages
         {
             get {
-                Console.WriteLine("roiehothirehtoirehtoiehteriothertio");
                 if (_selectedContact == null) return null;
                 return connectedUserTest.Messages(_selectedContact);
             }
@@ -184,18 +183,16 @@ namespace Messages.NET
 
         private void SendMessage()
         {
-            MessageBox.Show(_messageText);
+            Messages.Add(new Message(_messageText, connectedUserTest, _selectedContact));
 
-            Messages.Add(new Message(_messageText, connectedUserTest, null));
+            if (_selectedContact == null)
+            {
+                MessageBox.Show("You haven't selected a contact");
+                return;
+            }
 
-            _messageText = "";
-            /*Person receiver = ContactList.SelectedItem as Person;
-            String content = MessageBox.Text;
-
-            Console.WriteLine(this.selectedMessages.Count);
-
-            _messages.Add(new Message(content, connectedUserTest, receiver));
-            MessageBox.Text = "";*/
+            MessageText = "";
+            this.NotifyPropertyChanged("SelectedMessages");
 
         }
 
