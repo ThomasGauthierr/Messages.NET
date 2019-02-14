@@ -75,6 +75,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utils\Encryption.cs" />
+    <Compile Include="Utils\WebService.cs" />
     <Compile Include="VM\AppCommands.cs" />
     <Compile Include="View\NewContact.xaml.cs">
       <DependentUpon>NewContact.xaml</DependentUpon>
