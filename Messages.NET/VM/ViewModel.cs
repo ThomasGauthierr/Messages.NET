@@ -13,14 +13,80 @@ namespace Messages.NET
 {
     class ViewModel : INotifyPropertyChanged
     {
+        #region Attributes & events
+
         private static Person connectedUserTest;
-        public event PropertyChangedEventHandler PropertyChanged;
         private ObservableCollection<Person> _persons;
         private ObservableCollection<Message> _selectedMessages;
+        private String _messageText;
+        private Person _selectedContact;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Properties
+
+        public ObservableCollection<Person> Persons
+        {
+            get => _persons;
+            set
+            {
+                if (_persons != value)
+                {
+                    _persons = value;
+                    this.NotifyPropertyChanged("Persons");
+                }
+            }
+        }
+
+        public ObservableCollection<Message> SelectedMessages
+        {
+            get => _selectedMessages;
+            set
+            {
+                if (_selectedMessages != value)
+                {
+                    _selectedMessages = value;
+                    this.NotifyPropertyChanged("SelectedMessages");
+                }
+            }
+        }
+
+        public ObservableCollection<Message> Messages
+        {
+            get => ListSingleton.Instance.Messages;
+            set
+            {
+                if (ListSingleton.Instance.Messages != value)
+                {
+                    ListSingleton.Instance.Messages = value;
+                    this.NotifyPropertyChanged("Messages");
+                }
+            }
+        }
+        
+        public String MessageText
+        {
+            get => _messageText;
+            set
+            {
+
+            if (_messageText != value)
+                {
+                    _messageText = value;
+                    this.NotifyPropertyChanged("MessageText");
+                }
+            }
+        }
+
+        #endregion
 
 
         public ViewModel()
         {
+            #region Objects initialization
+
             _persons = new ObservableCollection<Person>();
             _selectedMessages = new ObservableCollection<Message>();
 
@@ -40,63 +106,27 @@ namespace Messages.NET
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
 
-            _messages.Add(new Message("bjr", p1, p2));
-            _messages.Add(new Message("slt", p2, p1));
-            _messages.Add(new Message("bonsoir", p1, p3));
-            _messages.Add(new Message("bjr", p3, p2));
-            _messages.Add(new Message("ok", p3, p1));
-            _messages.Add(new Message("t ki ?", p1, p2));
-            _messages.Add(new Message("ca va ?", p1, p2));
-            _messages.Add(new Message("xd", p1, p2));
-            _messages.Add(new Message("mdr", p1, p2));
-            _messages.Add(new Message("yoyoyo", p1, p3));
+            Messages.Add(new Message("bjr", p1, p2));
+            Messages.Add(new Message("slt", p2, p1));
+            Messages.Add(new Message("bonsoir", p1, p3));
+            Messages.Add(new Message("bjr", p3, p2));
+            Messages.Add(new Message("ok", p3, p1));
+            Messages.Add(new Message("t ki ?", p1, p2));
+            Messages.Add(new Message("ca va ?", p1, p2));
+            Messages.Add(new Message("xd", p1, p2));
+            Messages.Add(new Message("mdr", p1, p2));
+            Messages.Add(new Message("yoyoyo", p1, p3));
 
+            #endregion
 
-            #region Command initialization
+            #region Commands initialization
 
             SendMessageCommand = new HandleCommands(SendMessage);
 
             #endregion
         }
 
-        public ObservableCollection<Person> persons
-        {
-            get => _persons;
-            set
-            {
-                if(_persons != value)
-                {
-                    _persons = value;
-                    this.NotifyPropertyChanged("persons");
-                }
-            }
-        }
-
-        public ObservableCollection<Message> selectedMessages
-        {
-            get => _selectedMessages;
-            set 
-            {
-                if(_selectedMessages != value)
-                {
-                    _selectedMessages = value;
-                    this.NotifyPropertyChanged("selectedMessages");
-                }
-            }
-        }
-
-        public ObservableCollection<Message> _messages
-        {
-            get => ListSingleton.instance.messages;
-            set
-            {
-                if (ListSingleton.instance.messages != value)
-                {
-                    ListSingleton.instance.messages = value;
-                    this.NotifyPropertyChanged("messages");
-                }
-            }
-        }
+        
 
         private void contactListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -146,7 +176,11 @@ namespace Messages.NET
 
         private void SendMessage()
         {
-            MessageBox.Show("Message sent");
+            MessageBox.Show(_messageText);
+
+            Messages.Add(new Message(_messageText, connectedUserTest, null));
+
+            _messageText = "";
             /*Person receiver = ContactList.SelectedItem as Person;
             String content = MessageBox.Text;
 

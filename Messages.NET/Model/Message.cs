@@ -8,37 +8,45 @@ namespace Messages.NET
 {
     public class Message
     {
+        #region Attributes
+
         private String _id;
         private String _content;
         private Person _author;
         private Person _receiver;
         private DateTime _date;
 
-        public String id { get => _id; }
+        #endregion
 
-        public String content
+        #region Properties
+
+        public String Id { get => _id; }
+
+        public String Content
         {
             get => _content;
             set => _content = value;
         }
 
-        public Person author
+        public Person Author
         {
             get => _author;
             set => _author = value;
         }
 
-        public Person receiver
+        public Person Receiver
         {
             get => _receiver;
             set => _receiver = value;
         }
 
-        public DateTime date
+        public DateTime Date
         {
             get => _date;
             set => _date = value;
         }
+
+        #endregion
 
         public Message(String content, Person author, Person target)
         {

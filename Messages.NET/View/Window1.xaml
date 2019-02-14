@@ -21,10 +21,10 @@
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ItemsSource="{Binding persons}" Name="ContactList" SelectionChanged="ContactList_SelectionChanged">
+        <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ItemsSource="{Binding Persons}" Name="ContactList" SelectionChanged="ContactList_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding nickName}" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Nickname}" TextWrapping="Wrap" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -32,7 +32,7 @@
         <Button Grid.Column="0" Grid.Row="1" Margin="5,15">+</Button>
         <Button Grid.Column="1" Grid.Row="1" Margin="5,15" Click="ClickDelete">-</Button>
 
-        <ListBox Grid.Column="2" Grid.Row="0" ItemsSource="{Binding _messages}" Name="ListMessages">
+        <ListBox Grid.Column="2" Grid.Row="0" ItemsSource="{Binding Messages}" Name="ListMessages">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -45,8 +45,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         
-                        <TextBlock Text="{Binding date}" Grid.Row="0" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding content}" Grid.Row="1" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Date}" Grid.Row="0" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding Content}" Grid.Row="1" TextWrapping="Wrap" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -63,7 +63,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Column="0" Grid.Row="0" Margin="5,15" Name="MessageBox"></TextBox>
+            <TextBox Grid.Column="0" Grid.Row="0" Margin="5,15" Name="MessageBox" Text="{Binding MessageText}"></TextBox>
             <Button Grid.Column="1" Grid.Row="0" Margin="5,15" Command="{Binding SendMessageCommand}">Send</Button>
 
         </Grid>

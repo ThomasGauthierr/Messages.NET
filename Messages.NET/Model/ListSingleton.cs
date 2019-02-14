@@ -9,11 +9,15 @@ namespace Messages.NET
 {
     class ListSingleton
     {
-        private static ListSingleton _instance { get; set; }
+        #region Attributes
 
+        private static ListSingleton _instance { get; set; }
         private ObservableCollection<Message> _messages;
 
-        public static ListSingleton instance
+        #endregion
+
+        #region Properties
+        public static ListSingleton Instance
         {
             get
             {
@@ -25,7 +29,7 @@ namespace Messages.NET
             }
         }
 
-        public ObservableCollection<Message> messages
+        public ObservableCollection<Message> Messages
         {
             get => _messages;
             set => _messages = value;
@@ -35,6 +39,8 @@ namespace Messages.NET
         {
             _messages = new ObservableCollection<Message>();
         }
+
+        #endregion
 
 
 

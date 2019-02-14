@@ -11,59 +11,62 @@ namespace Messages.NET
 {
     public class Person
     {
+        #region Attributes
+
         private String _id;
-
-        private String _nickName;
-
+        private String _nickname;
         private Nullable<DateTime> _lastSeen;
-
         private String _pubKey;
-
         private String _privKey;
 
-        public String id
+        #endregion
+
+        #region Properties
+        public String Id
         {
             get => _id;
         }
 
-        public String nickName
+        public String Nickname
         {
-            get => _nickName;
-            set => _nickName = value;
+            get => _nickname;
+            set => _nickname = value;
         }
 
-        public Nullable<DateTime> lastSeen
+        public Nullable<DateTime> LastSeen
         {
             get => _lastSeen;
             set => _lastSeen = value;
         }
 
-        public String pubKey
+        public String PubKey
         {
             get => _pubKey;
             set => _pubKey = value;
         }
 
-        public String privKey
+        public String PrivKey
         {
             get => _privKey;
             set => _privKey = value;
         }
-        
 
-        public ObservableCollection<Message> messages(Person person)
+        public ObservableCollection<Message> Messages(Person person)
         {
             IEnumerable<Message> authorQuery =
-                   from message in ListSingleton.instance.messages
-                   where message.author == this && message.receiver == person || message.receiver == this && message.author == person
+                   from message in ListSingleton.Instance.Messages
+                   where message.Author == this && message.Receiver == person || message.Receiver == this && message.Author == person
                    select message;
             return new ObservableCollection<Message>(authorQuery.ToList());
         }
 
+        #endregion
+
+
         public Person(String nickname, Nullable<DateTime> lastSeen)
         {
             _id = System.Guid.NewGuid().ToString();
-            _nickName = nickname;
+            _nickname = nickname;
             _lastSeen = lastSeen;
             _pubKey = "pubKey";
             _privKey = "privKey";
@@ -73,7 +76,7 @@ namespace Messages.NET
         {
             string message;
             message = "ID : " + _id;
-            message += "\nNickname : " + _nickName;
+            message += "\nNickname : " + _nickname;
             message += "\nLast seen : " + _lastSeen;
 
             return message;
