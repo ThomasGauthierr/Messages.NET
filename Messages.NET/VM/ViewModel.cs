@@ -17,7 +17,6 @@ namespace Messages.NET
 
         private static Person connectedUserTest;
         private ObservableCollection<Person> _persons;
-        private ObservableCollection<Message> _selectedMessages;
         private String _messageText;
         private Person _selectedContact;
 
@@ -42,14 +41,10 @@ namespace Messages.NET
 
         public ObservableCollection<Message> SelectedMessages
         {
-            get => _selectedMessages;
-            set
-            {
-                if (_selectedMessages != value)
-                {
-                    _selectedMessages = value;
-                    this.NotifyPropertyChanged("SelectedMessages");
-                }
+            get {
+                Console.WriteLine("roiehothirehtoirehtoiehteriothertio");
+                if (_selectedContact == null) return null;
+                return connectedUserTest.Messages(_selectedContact);
             }
         }
 
@@ -80,6 +75,20 @@ namespace Messages.NET
             }
         }
 
+        public Person SelectedContact
+        {
+            get => _selectedContact;
+            set
+            {
+                if (_selectedContact != value)
+                {
+                    _selectedContact = value;
+                    this.NotifyPropertyChanged("SelectedContact");
+                    this.NotifyPropertyChanged("SelectedMessages");
+                }
+            }
+        }
+
         #endregion
 
 
@@ -88,7 +97,6 @@ namespace Messages.NET
             #region Objects initialization
 
             _persons = new ObservableCollection<Person>();
-            _selectedMessages = new ObservableCollection<Message>();
 
             Person p1 = new Person("Bob", DateTime.Now);
             Person p2 = new Person("Alice", DateTime.Now);
