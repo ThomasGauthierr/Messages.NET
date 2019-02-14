@@ -134,16 +134,6 @@ namespace Messages.NET
             #endregion
         }
 
-        public void ClickDelete(object sender, RoutedEventArgs e)
-        {
-            /*
-            int indexSelectedContact = ContactList.SelectedIndex;
-
-            if (indexSelectedContact == -1) return;
-
-            persons.RemoveAt(indexSelectedContact);*/
-        }
-
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
