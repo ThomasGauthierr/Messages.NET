@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
 
@@ -109,12 +108,21 @@ namespace Messages.NET
 
         public void NotifyPropertyChanged(string propName)
         {
-            /*
             if (this.PropertyChanged != null)
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-            }*/
+            }
         }
+
+        public bool NotifyPropertyChanged<T>(ref T variable, T valeur, string nomPropriete = null)
+        {
+            if (object.Equals(variable, valeur)) return false;
+
+            variable = valeur;
+            NotifyPropertyChanged(nomPropriete);
+            return true;
+        }
+
 
         private void ContactList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
