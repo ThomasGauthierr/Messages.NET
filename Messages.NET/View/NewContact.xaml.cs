@@ -17,12 +17,11 @@ namespace Messages.NET
     /// <summary>
     /// Interaction logic for NewPlayer.xaml
     /// </summary>
-    public partial class NewPlayer : Window
+    public partial class NewContact : Window
     {
-        public NewPlayer()
+        public NewContact()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel();
         }
     }
 }

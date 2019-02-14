@@ -130,6 +130,7 @@ namespace Messages.NET
 
             SendMessageCommand = new AppCommands(SendMessage);
             DeleteContactCommand = new AppCommands(DeleteContact);
+            OpenNewContactCommand = new AppCommands(OpenNewContact);
 
             #endregion
         }
@@ -178,6 +179,14 @@ namespace Messages.NET
             {
                 Persons.Remove(SelectedContact);
             }
+        }
+
+        public ICommand OpenNewContactCommand { get; set; }
+
+        private void OpenNewContact()
+        {
+            NewContact newContact = new NewContact();
+            newContact.Show();
         }
 
         #endregion
