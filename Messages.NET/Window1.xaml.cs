@@ -57,7 +57,6 @@ namespace Messages.NET
         {
             get
             {
-                Console.WriteLine(_selectedContact == null);
                 if (_selectedContact == null) return null;
                 return _selectedContact.messages(connectedUserTest);
             }
@@ -72,7 +71,7 @@ namespace Messages.NET
             }
         }
 
-        private ObservableCollection<Message> selectedMessages
+        public ObservableCollection<Message> selectedMessages
         {
             get
             {
