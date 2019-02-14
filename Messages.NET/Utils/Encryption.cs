@@ -10,12 +10,12 @@ namespace Messages.NET.Utils
 {
     static class Encryption
     {
-        private static string EncryptAES(string clearText, string strKey, string strIv)
+        public static string EncryptAES(string clearText, string strKey, string strIv)
         {
             // Place le texte à chiffrer dans un tableau d'octets
-            byte[] plainText = Encoding.UTF8.GetBytes(clearText);
+            byte[] plainText = Encoding.Default.GetBytes(clearText);
             // Place la clé de chiffrement dans un tableau d'octets
-            byte[] key = Encoding.UTF8.GetBytes(strKey);
+            byte[] key = Encoding.Default.GetBytes(strKey);
             // Place le vecteur d'initialisation dans un tableau d'octets
             byte[] iv = Encoding.UTF8.GetBytes(strIv);
             RijndaelManaged rijndael = new RijndaelManaged();
@@ -57,6 +57,18 @@ namespace Messages.NET.Utils
             cs.Close();
             return Encoding.UTF8.GetString(plainTextData, 0, decryptedByteCount);
         }
+
+        public static void generateAes(out string key, out string iv)
+        {
+            using (RijndaelManaged rijndael = new RijndaelManaged())
+            {
+                rijndael.GenerateKey();
+                rijndael.GenerateIV();
+                key = Encoding.Default.GetString(rijndael.Key);
+                iv = Encoding.Default.GetString(rijndael.IV);
+            }
+
+        }
         
         public static string EncryptRSA(string pubKey, string message)
         {
@@ -84,6 +96,18 @@ namespace Messages.NET.Utils
 
             bytesCypherText = csp.Decrypt(bytesCypherText, false);
             return Encoding.Unicode.GetString(bytesCypherText);
+        }
+
+        public static string generatePubKey()
+        {
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            return RSA.ToXmlString(false);
+        }
+
+        public static string generatePrivKey()
+        {
+            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+            return RSA.ToXmlString(true);
         }
 
     }

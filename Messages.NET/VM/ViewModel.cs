@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Input;
+using Messages.NET.Utils;
 
 namespace Messages.NET
 {
@@ -133,6 +134,18 @@ namespace Messages.NET
             OpenNewContactCommand = new AppCommands(OpenNewContact);
 
             #endregion
+
+            //string pub = Encryption.generatePubKey();
+            //string priv = Encryption.generatePrivKey();
+            //string message = "tutu";
+            //string aesKey, aesIV;
+            //Encryption.generateAes(out aesKey, out aesIV);
+
+            //string encryptedAES = Encryption.EncryptAES(message, aesKey, aesIV);
+
+            //Console.WriteLine(Encryption.DecryptAES(message, aesKey, aesIV));
+
+
         }
 
         public void NotifyPropertyChanged(string propName)
