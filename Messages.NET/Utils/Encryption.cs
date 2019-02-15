@@ -70,46 +70,6 @@ namespace Messages.NET.Utils
             }
 
         }
-        
-        //public static string EncryptRSA(string pubKey, string message)
-        //{
-        //    byte[] bytesKey = Encoding.UTF8.GetBytes(pubKey);
-        //    RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);         
-
-        //    RSAParameters RSAKeyInfo = csp.ExportParameters(false);            
-        //    RSAKeyInfo.Modulus = bytesKey;
-
-        //    csp.ImportParameters(RSAKeyInfo);
-
-        //    var bytesMessage = Encoding.UTF8.GetBytes(message);
-        //    var bytesCypherText = csp.Encrypt(bytesMessage, false);
-        //    return Convert.ToBase64String(bytesCypherText);
-        //}
-
-        //public static string DecryptRSA(string privKey, string cypherText)
-        //{
-        //    byte[] bytesCypherText = Convert.FromBase64String(cypherText);
-        //    RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);
-        //    RSAParameters RSAKeyInfo = csp.ExportParameters(true);
-
-        //    csp = new RSACryptoServiceProvider();
-        //    csp.ImportParameters(RSAKeyInfo);
-
-        //    bytesCypherText = csp.Decrypt(bytesCypherText, false);
-        //    return Encoding.Unicode.GetString(bytesCypherText);
-        //}
-
-        //public static string generatePubKey()
-        //{
-        //    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-        //    return RSA.ToXmlString(false);
-        //}
-
-        //public static string generatePrivKey()
-        //{
-        //    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-        //    return RSA.ToXmlString(true);
-        //}
 
         public static void Test(out String publicKey, out String privateKey)
         {
