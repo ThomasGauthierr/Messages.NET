@@ -114,7 +114,9 @@ namespace Messages.NET
             _persons.Add(new Person("Ted", DateTime.Now));
             _persons.Add(new Person("Sarah", DateTime.Now));
 
-            Messages.Add(new Message("bjr", p1, p2));
+            Message m1 = new Message("bjr", p1, p2);
+
+            Messages.Add(m1);
             Messages.Add(new Message("slt", p2, p1));
             Messages.Add(new Message("bonsoir", p1, p3));
             Messages.Add(new Message("bjr", p3, p2));
@@ -135,6 +137,15 @@ namespace Messages.NET
 
             #endregion
 
+
+            #region Tests to remove
+
+            Database.Instance.createTablePerson();
+            Database.Instance.createPerson(p1);
+            Database.Instance.createPerson(p2);
+            Database.Instance.createTableMessage();
+            Database.Instance.createMessage(m1);
+
             //string pub = Encryption.generatePubKey();
             //string priv = Encryption.generatePrivKey();
             //string message = "tutu";
@@ -144,6 +155,8 @@ namespace Messages.NET
             //string encryptedAES = Encryption.EncryptAES(message, aesKey, aesIV);
 
             //Console.WriteLine(Encryption.DecryptAES(message, aesKey, aesIV));
+
+            #endregion
 
 
         }

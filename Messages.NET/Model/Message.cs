@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Messages.NET
 {
+    [Table("Message")]
     public class Message
     {
         #region Attributes
@@ -20,20 +22,22 @@ namespace Messages.NET
 
         #region Properties
 
+        [PrimaryKey]
         public String Id { get => _id; }
 
+        [MaxLength(200)]
         public String Content
         {
             get => _content;
             set => _content = value;
         }
-
+        
         public Person Author
         {
             get => _author;
             set => _author = value;
         }
-
+        
         public Person Receiver
         {
             get => _receiver;
@@ -47,6 +51,12 @@ namespace Messages.NET
         }
 
         #endregion
+
+        public Message()
+        {
+            _id = System.Guid.NewGuid().ToString();
+            _date = DateTime.Now;
+        }
 
         public Message(String content, Person author, Person target)
         {

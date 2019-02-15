@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using SQLite;
 
 namespace Messages.NET
 {
+    [Table("Person")]
     public class Person
     {
         #region Attributes
@@ -22,11 +24,14 @@ namespace Messages.NET
         #endregion
 
         #region Properties
+
+        [PrimaryKey]
         public String Id
         {
             get => _id;
         }
 
+        [MaxLength(50), Unique]
         public String Nickname
         {
             get => _nickname;
@@ -62,14 +67,21 @@ namespace Messages.NET
 
         #endregion
 
+        public Person()
+        {
+            _id = System.Guid.NewGuid().ToString();
+            _nickname = "";
+            _lastSeen = null;
+            
+        }
 
         public Person(String nickname, Nullable<DateTime> lastSeen)
         {
             _id = System.Guid.NewGuid().ToString();
             _nickname = nickname;
             _lastSeen = lastSeen;
-            _pubKey = "pubKey";
-            _privKey = "privKey";
+            _pubKey = generatePubKey();
+            _privKey = generatePrivKey(); ;
         }
 
         public override string ToString()
@@ -80,6 +92,16 @@ namespace Messages.NET
             message += "\nLast seen : " + _lastSeen;
 
             return message;
+        }
+
+        private string generatePubKey()
+        {
+            return "pubKey";
+        }
+
+        private string generatePrivKey()
+        {
+            return "privKey";
         }
 
     }
