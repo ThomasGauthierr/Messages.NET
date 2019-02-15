@@ -140,11 +140,11 @@ namespace Messages.NET
 
             #region Tests to remove
 
-            Database.Instance.createTablePerson();
-            Database.Instance.createPerson(p1);
-            Database.Instance.createPerson(p2);
-            Database.Instance.createTableMessage();
-            Database.Instance.createMessage(m1);
+            //Database.Instance.createTablePerson();
+            //Database.Instance.createPerson(p1);
+            //Database.Instance.createPerson(p2);
+            //Database.Instance.createTableMessage();
+            //Database.Instance.createMessage(m1);
 
             //string pub = Encryption.generatePubKey();
             //string priv = Encryption.generatePrivKey();
