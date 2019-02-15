@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Messages.NET.Utils
 {
@@ -70,44 +71,113 @@ namespace Messages.NET.Utils
 
         }
         
-        public static string EncryptRSA(string pubKey, string message)
+        //public static string EncryptRSA(string pubKey, string message)
+        //{
+        //    byte[] bytesKey = Encoding.UTF8.GetBytes(pubKey);
+        //    RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);         
+
+        //    RSAParameters RSAKeyInfo = csp.ExportParameters(false);            
+        //    RSAKeyInfo.Modulus = bytesKey;
+
+        //    csp.ImportParameters(RSAKeyInfo);
+
+        //    var bytesMessage = Encoding.UTF8.GetBytes(message);
+        //    var bytesCypherText = csp.Encrypt(bytesMessage, false);
+        //    return Convert.ToBase64String(bytesCypherText);
+        //}
+
+        //public static string DecryptRSA(string privKey, string cypherText)
+        //{
+        //    byte[] bytesCypherText = Convert.FromBase64String(cypherText);
+        //    RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);
+        //    RSAParameters RSAKeyInfo = csp.ExportParameters(true);
+
+        //    csp = new RSACryptoServiceProvider();
+        //    csp.ImportParameters(RSAKeyInfo);
+
+        //    bytesCypherText = csp.Decrypt(bytesCypherText, false);
+        //    return Encoding.Unicode.GetString(bytesCypherText);
+        //}
+
+        //public static string generatePubKey()
+        //{
+        //    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+        //    return RSA.ToXmlString(false);
+        //}
+
+        //public static string generatePrivKey()
+        //{
+        //    RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+        //    return RSA.ToXmlString(true);
+        //}
+
+        public static void Test(out String publicKey, out String privateKey)
         {
-            byte[] bytesKey = Encoding.UTF8.GetBytes(pubKey);
-            RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);         
+            var csp = new RSACryptoServiceProvider();  // génére une paire de clefs (privée,publique)
+            publicKey = csp.ToXmlString(false); // récupère un xml représentant la clef publique
+            privateKey = csp.ToXmlString(true); //récupère un xml représentant l’ensemble des information du trousseau
+            var plainTextData = "foobar"; //texte à chiffrer
+            var bytesPlainTextData = System.Text.Encoding.Unicode.GetBytes(plainTextData); //encode les data en tableau de byte
+            var bytesCypherText = csp.Encrypt(bytesPlainTextData, false); // chiffre
+            var cypherText = Convert.ToBase64String(bytesCypherText); //passage en base64 pour le stoquage ou le transport
 
-            RSAParameters RSAKeyInfo = csp.ExportParameters(false);            
-            RSAKeyInfo.Modulus = bytesKey;
+            bytesCypherText = Convert.FromBase64String(cypherText); //convertit de la base 64 en tableau de byte 
+            csp = new RSACryptoServiceProvider();//instancie le crypto proviter 
+            csp.FromXmlString(privateKey);
+            bytesPlainTextData = csp.Decrypt(bytesCypherText, false); //déchiffrement
+            String ntm = System.Text.Encoding.Unicode.GetString(bytesPlainTextData); //passage en en text
 
-            csp.ImportParameters(RSAKeyInfo);
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine(ntm);
+        }
 
-            var bytesMessage = Encoding.UTF8.GetBytes(message);
+        public static void GenerateRSA(out String publicKey, out String privateKey)
+        {
+            var csp = new RSACryptoServiceProvider();  
+            publicKey = csp.ToXmlString(false);
+            privateKey = csp.ToXmlString(true);
+        }
+
+        public static String EncryptRSA(String publicKey, String message)            
+        {
+            var csp = new RSACryptoServiceProvider();
+            var sr = new System.IO.StringReader(publicKey);
+
+            XmlRootAttribute xRoot = new XmlRootAttribute();
+            xRoot.ElementName = "RSAKeyValue";
+            xRoot.IsNullable = false;
+
+            var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters), xRoot);
+
+
+            var pubKey = (RSAParameters)xs.Deserialize(sr);
+            csp.ImportParameters(pubKey);
+
+            var bytesMessage = System.Text.Encoding.Unicode.GetBytes(message);
             var bytesCypherText = csp.Encrypt(bytesMessage, false);
-            return Convert.ToBase64String(bytesCypherText);
+            var cypherText = Convert.ToBase64String(bytesCypherText);
+
+            return cypherText;
         }
 
-        public static string DecryptRSA(string privKey, string cypherText)
+        public static String DecryptRSA(String privateKey, String cypherText)
         {
-            byte[] bytesCypherText = Convert.FromBase64String(cypherText);
-            RSACryptoServiceProvider csp = new RSACryptoServiceProvider(2048);
-            RSAParameters RSAKeyInfo = csp.ExportParameters(true);
+            var bytesCypherText = Convert.FromBase64String(cypherText);
+            var csp = new RSACryptoServiceProvider();
+            
+            var sr = new System.IO.StringReader(privateKey);
 
-            csp = new RSACryptoServiceProvider();
-            csp.ImportParameters(RSAKeyInfo);
+            XmlRootAttribute xRoot = new XmlRootAttribute();
+            xRoot.ElementName = "RSAKeyValue";
+            xRoot.IsNullable = false;
 
-            bytesCypherText = csp.Decrypt(bytesCypherText, false);
-            return Encoding.Unicode.GetString(bytesCypherText);
-        }
+            var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters), xRoot);
+            var privKey = (RSAParameters)xs.Deserialize(sr);
+            csp.ImportParameters(privKey);
 
-        public static string generatePubKey()
-        {
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            return RSA.ToXmlString(false);
-        }
+            var bytesDecrypted = csp.Decrypt(bytesCypherText, false);
 
-        public static string generatePrivKey()
-        {
-            RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-            return RSA.ToXmlString(true);
+            return System.Text.Encoding.Unicode.GetString(bytesDecrypted);
         }
 
     }

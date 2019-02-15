@@ -146,9 +146,19 @@ namespace Messages.NET
             //Database.Instance.createTableMessage();
             //Database.Instance.createMessage(m1);
 
-            //string pub = Encryption.generatePubKey();
-            //string priv = Encryption.generatePrivKey();
+            //String pubKey, privKey;
+            //String pubKey2, privKey2;
+
+            //Encryption.GenerateRSA(out pubKey, out privKey);
+            //Encryption.Test(out pubKey2, out privKey2);
+
+            //String notCryptedMessage = "Bonsoir!";
+
+            //String cypher = Encryption.EncryptRSA(pubKey, notCryptedMessage);
+            //Console.WriteLine(String.Equals(Encryption.DecryptRSA(privKey, cypher), notCryptedMessage));
+            
             //string message = "tutu";
+            //Encryption.Test();
             //string aesKey, aesIV;
             //Encryption.generateAes(out aesKey, out aesIV);
 
