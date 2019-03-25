@@ -31,11 +31,14 @@ namespace Messages.NET
 
         async void submit(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Clicking on the loging button");
+
+            var user = ((TextBox)this.FindName("username")).Text;
+            var pass = ((TextBox)this.FindName("password")).Text;
+
             string json = new JavaScriptSerializer().Serialize(new
             {
-                username = "aaa",
-                password = "bbb"
+                username = user,
+                password = pass
             });
 
             var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
@@ -44,7 +47,12 @@ namespace Messages.NET
 
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Console.WriteLine(responseString);
+
+            Login login = new Login();
+            App.Current.MainWindow = login;
+            login.DataContext = App.Current.MainWindow.DataContext;
+            this.Close();
+            login.Show();
         }
     }
 }

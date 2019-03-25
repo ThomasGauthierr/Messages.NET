@@ -17,7 +17,7 @@ namespace Messages.NET
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var app = new Window1();
+            var app = new Login();
             var context = new ViewModel();
             app.DataContext = context;
             app.Show();

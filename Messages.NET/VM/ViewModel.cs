@@ -20,6 +20,7 @@ namespace Messages.NET
         private ObservableCollection<Person> _persons;
         private String _messageText;
         private Person _selectedContact;
+        private string _sessionToken;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -86,6 +87,15 @@ namespace Messages.NET
                     this.NotifyPropertyChanged("SelectedContact");
                     this.NotifyPropertyChanged("SelectedMessages");
                 }
+            }
+        }
+
+        public string SessionToken
+        {
+            get => _sessionToken;
+            set
+            {
+                _sessionToken = value;
             }
         }
 
